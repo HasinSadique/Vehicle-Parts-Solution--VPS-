@@ -28,6 +28,10 @@ const Home = () => {
         </div>
       </div>
       {/* Parts Max 6 */}
+      <h1 className="text-2xl text-center font-semibold mb-10">Parts LineUp</h1>
+      <div>
+        <div></div>
+      </div>
       {/* Business Summary */}
       <div className="p-10 lg:w-1/2 mx-auto ">
         <h1 className="text-2xl text-left font-semibold mb-10">
