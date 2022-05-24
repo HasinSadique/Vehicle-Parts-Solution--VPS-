@@ -49,13 +49,16 @@ const Navbar = () => {
               : "top-[-200px]"
           } `}
         >
-          <ul className="lg:flex lg:justify-around ">
+          <ul
+            className={`lg:flex lg:justify-around ${user ? "lg:mx-32" : ""} `}
+          >
             <li className=" hover:bg-orange-500 lg:hover:text-orange-400 lg:hover:scale-110 lg:transition ease-out delay-100 lg:h-0 h-10">
               <a className="" href="/">
                 Home
               </a>
             </li>
-            <li
+            {/* For Admin Role */}
+            {/* <li
               className={`${
                 user ? "" : "hidden"
               } hover:bg-orange-500 lg:hover:text-orange-400 lg:hover:scale-110 lg:transition ease-out delay-100 lg:h-0 h-11`}
@@ -64,13 +67,14 @@ const Navbar = () => {
                 Add Parts
               </a>
             </li>
-            <li
+             */}
+            {/* <li
               className={`${
                 user ? "" : "hidden"
               } hover:bg-orange-500 lg:hover:text-orange-400 lg:hover:scale-110 lg:transition ease-out delay-100 lg:h-0 h-10`}
             >
               <a href="/parts-inventory">Manage Parts</a>
-            </li>
+            </li> */}
             <li
               className={`
                hover:bg-orange-500 lg:hover:text-orange-400 lg:hover:scale-110 lg:transition ease-out delay-100 lg:h-0 h-10`}
@@ -93,20 +97,28 @@ const Navbar = () => {
           onClick={() => setOpenProfile(!openProfile)}
           className="ml-auto hover:bg-slate-200 lg:px-10 px-4 flex items-center rounded-lg"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="lg:h-12 lg;w-12 h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          {user?.photoURL ? (
+            <img
+              className="rounded-full w-10 h-10"
+              src={user.photoURL}
+              alt=""
             />
-          </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="black"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          )}
           <svg
             className="w-4 h-4 ml-2"
             fill="none"
@@ -126,43 +138,54 @@ const Navbar = () => {
         <div
           className={`${
             openProfile
-              ? "absolute top-20 right-0 w-44 bg-white rounded-bl-3xl divide-y"
+              ? "absolute top-20 right-0 w-80 bg-blue-50 border-b-2 border-x-2 rounded-bl-3xl "
               : "hidden"
           }`}
         >
-          <div className="px-4 py-3 text-sm">
-            <div>Bonnie Green</div>
-            <div className="font-medium truncate">name@flowbite.com</div>
-          </div>
-          <ul
-            className="py-1 text-sm text-gray-700 text-gray-200"
-            aria-labelledby="dropdownInformationButton"
-          >
-            <li>
-              <a
-                href="/dashboard"
-                className="block px-4 py-2 text-black hover:bg-blue-100"
+          {user ? (
+            <div className="divide-y">
+              <div className="px-4 py-3 text-sm">
+                <div>{user.displayName}</div>
+                <div className="font-medium truncate">{user.email}</div>
+              </div>
+              <ul
+                className="py-1 text-sm text-gray-700 text-gray-200"
+                aria-labelledby="dropdownInformationButton"
               >
-                Dashboard
+                <li>
+                  <a
+                    href="/dashboard"
+                    className="block px-4 py-2 text-black hover:bg-blue-100"
+                  >
+                    Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/settings"
+                    className="block px-4 py-2 text-black hover:bg-blue-100"
+                  >
+                    Profile Settings
+                  </a>
+                </li>
+              </ul>
+              <div className="py-1">
+                <a
+                  onClick={() => signOut(auth)}
+                  href="#"
+                  className="block text-sm ml-1.5 py-2 rounded-bl-3xl text-black hover:bg-blue-100"
+                >
+                  Sign out
+                </a>
+              </div>
+            </div>
+          ) : (
+            <div className="h-20 flex justify-center items-center">
+              <a className="" href="/signin">
+                Sign In
               </a>
-            </li>
-            <li>
-              <a
-                href="/settings"
-                className="block px-4 py-2 text-black hover:bg-blue-100"
-              >
-                Profile Settings
-              </a>
-            </li>
-          </ul>
-          <div className="py-1">
-            <a
-              href="#"
-              className="block text-sm ml-1.5 py-2 rounded-bl-3xl text-black hover:bg-blue-100"
-            >
-              Sign out
-            </a>
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

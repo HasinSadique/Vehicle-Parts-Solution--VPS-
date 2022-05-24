@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import PartsCard from "../PartsCard/PartsCard";
 
 const Home = () => {
+  const [parts, setParts] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/getParts")
+      .then((res) => res.json())
+      .then((data) => setParts(data));
+  }, []);
+
   return (
     <div>
       {/* Banner */}
@@ -28,26 +36,40 @@ const Home = () => {
         </div>
       </div>
       {/* Parts Max 6 */}
-      <h1 className="text-2xl text-center font-semibold mb-10">Parts LineUp</h1>
-      <div>
-        <div></div>
+      <div className="mt-40 mb-16 lg:mx-60 md:mx-28 mx-20">
+        <h1 className="mt-5 text-2xl text-center font-semibold mb-10">
+          Parts LineUp {parts.length}
+        </h1>
+        <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">
+          {parts.slice(0, 3).map((item) => (
+            <PartsCard key={item._id} item={item}></PartsCard>
+          ))}
+        </div>
+      </div>
+      <div className="mb-40">
+        <a
+          className="border-orange-600 border-2 hover:bg-orange-600 rounded-3xl hover:text-white px-8 py-1.5"
+          href=""
+        >
+          Show All Parts
+        </a>
       </div>
       {/* Business Summary */}
-      <div className="p-10 lg:w-1/2 mx-auto ">
+      <div className="p-10 bg-stone-100 border-4 rounded-xl lg:w-1/2 mx-auto ">
         <h1 className="text-2xl text-left font-semibold mb-10">
           Business Summary
         </h1>
         <p className="text-left text-justify">
           In 1928, Carlyle Fraser founded VPS with the purchase of Motor Parts
           Depot in Atlanta, Georgia for $40,000. He then renamed the parts store
-          Genuine Parts Company. The original GPC store had annual sales of
-          $75,000 and had only six employees. In relationship with NAPA, GPC
+          Vehicle Parts Solution. The original VPS store had annual sales of
+          $75,000 and had only six employees. In relationship with NAPA, VPS
           grew its automotive business to become the largest automotive
-          aftermarket network across the globe. From the beginning, GPC has
+          aftermarket network across the globe. From the beginning, VPS has
           focused on providing its customers with quality products and swift,
           reliable service. The Company has grown organically and through
           acquisitions, including the addition of Motion Industries, a leading
-          industrial distributor, in 1976. Today, Genuine Parts Company is a
+          industrial distributor, in 1976. Today, Vehicle Parts Solution is a
           global service organization engaged in the distribution of automotive
           and industrial replacement parts with approximately 50,000 employees
           and over 10,000 operations in 15 countries across North America,
@@ -55,6 +77,42 @@ const Home = () => {
         </p>
       </div>
       {/* Reviews */}
+      <div>
+        <div className="mt-20 bg-stone-100 w-3/4 mx-auto">
+          <h1 className="text-2xl font-semibold">Client Reviews</h1>
+
+          <span className="flex">
+            User Name
+            <div className="rating">
+              <input
+                type="radio"
+                name="rating-2"
+                className="mask mask-star-2 bg-orange-400"
+              />
+              <input
+                type="radio"
+                name="rating-2"
+                className="mask mask-star-2 bg-orange-400"
+              />
+              <input
+                type="radio"
+                name="rating-2"
+                className="mask mask-star-2 bg-orange-400"
+              />
+              <input
+                type="radio"
+                name="rating-2"
+                className="mask mask-star-2 bg-orange-400"
+              />
+              <input
+                type="radio"
+                name="rating-2"
+                className="mask mask-star-2 bg-orange-400"
+              />
+            </div>
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

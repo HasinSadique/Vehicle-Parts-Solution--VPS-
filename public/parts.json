@@ -1,0 +1,64 @@
+[{
+        "_id": "1",
+        "name": "Engine Hood",
+        "image": "https://4.imimg.com/data4/BP/RK/MY-2537593/engine-hood-500x500.jpg",
+        "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
+        "min_order_qnty": 10,
+        "available_qnty": 23,
+        "price": "$900"
+    },
+    {
+        "_id": "2",
+        "name": "Vehicle Door (back right)",
+        "image": "https://3.imimg.com/data3/VT/QG/GLADMIN-140882/car-door-500x500.jpg",
+        "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
+        "min_order_qnty": 5,
+        "available_qnty": 15,
+        "price": "$1000"
+    },
+    {
+        "_id": "3",
+        "name": "Engine",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/5/52/Bugatti_W16%2C_GIMS_2019%2C_Le_Grand-Saconnex_%28GIMS0966%29.jpg",
+        "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
+        "min_order_qnty": 3,
+        "available_qnty": 13,
+        "price": "$1900"
+    },
+    {
+        "_id": "4",
+        "name": "Transmission",
+        "image": "https://di-uploads-pod14.dealerinspire.com/badgertruckcenter/uploads/2019/04/AISIN-six-speed-automatic-transmission-.png",
+        "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
+        "min_order_qnty": 2,
+        "available_qnty": 13,
+        "price": "$1300"
+    },
+    {
+        "_id": "5",
+        "name": "Drive Shaft",
+        "image": "https://www.hm4x4.com/content/images/thumbs/0021659_albero-trasmissione-posteriore-modello-hd-sae-42-suzuki-sj410.jpeg",
+        "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
+        "min_order_qnty": 5,
+        "available_qnty": 20,
+        "price": "$700"
+    },
+    {
+        "_id": "6",
+        "name": "Rims",
+        "image": "https://image.made-in-china.com/2f0j00sPeGlicqEWkM/F2470743-F2470743-17inch-Alloy-Wheels-for-Auto-Car-Rims-High-Quality-for-3-Years-Warranty.jpg",
+        "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
+        "min_order_qnty": 7,
+        "available_qnty": 30,
+        "price": "$1700"
+    },
+    {
+        "_id": "7",
+        "name": "TYRES",
+        "image": "https://media.istockphoto.com/photos/new-tire-is-placed-on-the-tire-storage-rack-in-the-car-workshop-be-picture-id1332478606?s=612x612",
+        "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
+        "min_order_qnty": 10,
+        "available_qnty": 23,
+        "price": "$600"
+    }
+]
