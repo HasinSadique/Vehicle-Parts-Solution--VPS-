@@ -7,16 +7,29 @@ const PurchasePart = () => {
   const [placeOrder, setPlaceOrder] = useState(null);
   const [part, setPart] = useState({});
   const [orderQuantity, setOrderQuantity] = useState(0);
+
   useEffect(() => {
     const url = `http://localhost:5000/getParts/${itemId}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => setPart(data));
   }, []);
+  useEffect(() => {
+    const url = `http://localhost:5000/getParts/${itemId}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setOrderQuantity(data.min_order_qnty));
+  }, []);
+
+  const handlePlaceorder = () => {
+    <OrderModal setPlaceOrder={setPlaceOrder}></OrderModal>;
+  };
 
   const handleIncreaseOrderQuantity = () => {
     let increasedQnty = orderQuantity + 1;
-    setOrderQuantity(increasedQnty);
+    if (increasedQnty <= part.available_qnty) {
+      setOrderQuantity(increasedQnty);
+    }
   };
   const handleDecreaseOrderQuantity = () => {
     let decreasedQnty = orderQuantity - 1;
@@ -51,7 +64,7 @@ const PurchasePart = () => {
           <h2 className="text-white">
             Available Quantity: {part.available_qnty}
           </h2>
-          <h2 className="text-white mb-2">Price per Quantity: {part.price}</h2>
+          <h2 className="text-white mb-2">Price per Quantity: ${part.price}</h2>
           <div className=" flex justify-center items-center mb-10">
             <button
               onClick={handleDecreaseOrderQuantity}
@@ -70,7 +83,7 @@ const PurchasePart = () => {
                 />
               </svg>
             </button>
-            <h1 className="text-white">Order: {orderQuantity} </h1>
+            <h1 className="text-white">Order Quantity: {orderQuantity} </h1>
             <button
               onClick={handleIncreaseOrderQuantity}
               className=" border-2 border-orange-500 ml-3 w-6 h-6"
@@ -91,17 +104,23 @@ const PurchasePart = () => {
           </div>
 
           <h1 className="font-extrabold text-3xl mb-5 text-white">
-            Total Price: {part.price * orderQuantity}
+            Total Price: ${part.price * orderQuantity}
           </h1>
           <label
             onClick={setPlaceOrder}
+            // onClick={() => handlePlaceorder()}
             htmlFor="order-modal"
             className=" modal-button text-white bg-orange-500 px-5 py-1.5 rounded-xl"
           >
             Place Order
           </label>
           {placeOrder && (
-            <OrderModal setPlaceOrder={setPlaceOrder}></OrderModal>
+            <OrderModal
+              setPlaceOrder={setPlaceOrder}
+              part={part}
+              price={part.price * orderQuantity}
+              quantity={orderQuantity}
+            ></OrderModal>
           )}
         </div>
       </div>

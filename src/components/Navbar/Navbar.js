@@ -57,17 +57,18 @@ const Navbar = () => {
                 Home
               </a>
             </li>
-            {/* For Admin Role */}
-            {/* <li
+
+            <li
               className={`${
                 user ? "" : "hidden"
               } hover:bg-orange-500 lg:hover:text-orange-400 lg:hover:scale-110 lg:transition ease-out delay-100 lg:h-0 h-11`}
             >
-              <a className=" text-center" href="/add-parts">
-                Add Parts
+              <a className=" text-center" href="/dashboard">
+                Dashboard
               </a>
             </li>
-             */}
+            {/* For Admin Role */}
+            {/* add part */}
             {/* <li
               className={`${
                 user ? "" : "hidden"

@@ -1,18 +1,63 @@
-import React from "react";
+import { reload } from "@firebase/auth";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 
-const OrderModal = () => {
+const OrderModal = (props) => {
+  const { name } = props.part;
+  const { price } = props;
+  const { quantity } = props;
   const [user] = useAuthState(auth);
+
+  const [response, setResponse] = useState("");
+  const [mobNumber, setMobNumber] = useState("");
+  const [address, setAddress] = useState("");
+
+  const handelConfirmOrder = (event) => {
+    event.preventDefault();
+
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        partID: props.part._id,
+        Quantity: quantity,
+        price: price,
+        Email: user.email,
+      }),
+    };
+
+    fetch("http://localhost:5000/booking", requestOptions)
+      .then((res) => res.json())
+      .then((data) => setResponse(data));
+    if (response.success == true) {
+      //   window.location.reload();
+      // got to my Orders
+    }
+  };
+
+  const handleMobileNumBlur = (event) => {
+    setMobNumber(event.target.value);
+  };
+
+  const handleAddressNumBlur = (event) => {
+    setMobNumber(event.target.value);
+  };
   return (
     <div>
       <input type="checkbox" id="order-modal" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h1 className="mb-10"> Total Cost: </h1>
-          <form className=" grid grid-cols-1 justify-items-center gap-4 ">
+          <h1 className="mb-10">
+            {" "}
+            Total Cost for {quantity} {name}s are ${price}{" "}
+          </h1>
+          <form
+            onSubmit={handelConfirmOrder}
+            className=" grid grid-cols-1 justify-items-center gap-4 "
+          >
             <input
-              type="text"
+              type="email"
               placeholder={user.email}
               className="input input-bordered w-full max-w-xs"
               disabled
@@ -27,15 +72,26 @@ const OrderModal = () => {
               type="text"
               placeholder="Contact Number"
               className="input input-bordered w-full max-w-xs"
+              onBlur={handleMobileNumBlur}
             />
             <input
               type="text"
               placeholder="Address"
               className="input input-bordered w-full max-w-xs"
+              onClick={handleAddressNumBlur}
             />
-            <div className="modal-action">
-              <input className="btn" value="ConfirmOrder" type="submit"></input>
-              <button className="btn"> Cancel </button>
+            <div className="">
+              <input
+                className="btn modal-action"
+                value="Confirm Order"
+                type="submit"
+              ></input>
+              <button className="btn modal-toggle"> Cancel </button>
+            </div>
+            <div
+              className={`${response.success ? " text-green-600" : "hidden"}`}
+            >
+              {response.msg}
             </div>
           </form>
         </div>
