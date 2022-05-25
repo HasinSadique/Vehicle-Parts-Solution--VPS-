@@ -4,7 +4,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 
 const OrderModal = (props) => {
-  const { name } = props.part;
+  const { setPlaceOrder } = props;
+  const { partName } = props;
   const { price } = props;
   const { quantity } = props;
   const [user] = useAuthState(auth);
@@ -20,7 +21,7 @@ const OrderModal = (props) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        partID: props.part._id,
+        partName: partName,
         Quantity: quantity,
         price: price,
         Email: user.email,
@@ -34,6 +35,7 @@ const OrderModal = (props) => {
       //   window.location.reload();
       // got to my Orders
     }
+    setPlaceOrder(null);
   };
 
   const handleMobileNumBlur = (event) => {
@@ -50,7 +52,7 @@ const OrderModal = (props) => {
         <div className="modal-box">
           <h1 className="mb-10">
             {" "}
-            Total Cost for {quantity} {name}s are ${price}{" "}
+            Total Cost for {quantity} {partName}s are ${price}{" "}
           </h1>
           <form
             onSubmit={handelConfirmOrder}

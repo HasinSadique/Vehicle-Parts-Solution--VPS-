@@ -5,7 +5,7 @@
         "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
         "min_order_qnty": 10,
         "available_qnty": 23,
-        "price": "$900"
+        "price": "900"
     },
     {
         "_id": "2",
@@ -14,7 +14,7 @@
         "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
         "min_order_qnty": 5,
         "available_qnty": 15,
-        "price": "$1000"
+        "price": "1000"
     },
     {
         "_id": "3",
@@ -23,7 +23,7 @@
         "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
         "min_order_qnty": 3,
         "available_qnty": 13,
-        "price": "$1900"
+        "price": "1900"
     },
     {
         "_id": "4",
@@ -32,7 +32,7 @@
         "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
         "min_order_qnty": 2,
         "available_qnty": 13,
-        "price": "$1300"
+        "price": "1300"
     },
     {
         "_id": "5",
@@ -41,7 +41,7 @@
         "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
         "min_order_qnty": 5,
         "available_qnty": 20,
-        "price": "$700"
+        "price": "700"
     },
     {
         "_id": "6",
@@ -50,7 +50,7 @@
         "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
         "min_order_qnty": 7,
         "available_qnty": 30,
-        "price": "$1700"
+        "price": "1700"
     },
     {
         "_id": "7",
@@ -59,6 +59,6 @@
         "description": "ljscbjhcjhj jasjc asbjyas hjascj scbj",
         "min_order_qnty": 10,
         "available_qnty": 23,
-        "price": "$600"
+        "price": "600"
     }
 ]

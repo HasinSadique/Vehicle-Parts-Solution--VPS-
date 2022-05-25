@@ -117,7 +117,7 @@ const PurchasePart = () => {
           {placeOrder && (
             <OrderModal
               setPlaceOrder={setPlaceOrder}
-              part={part}
+              partName={part.name}
               price={part.price * orderQuantity}
               quantity={orderQuantity}
             ></OrderModal>
