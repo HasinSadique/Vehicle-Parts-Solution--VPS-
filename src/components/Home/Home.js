@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import PartsCard from "../PartsCard/PartsCard";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const Home = () => {
+  const [user] = useAuthState(auth);
   const [parts, setParts] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/getParts")
       .then((res) => res.json())
       .then((data) => setParts(data));
   }, []);
+
+  console.log("UserAuthState: ", user);
 
   return (
     <div>

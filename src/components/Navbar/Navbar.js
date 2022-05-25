@@ -15,7 +15,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className=" bg-transparent p-3 shadow border-b-2  ">
+    <div className=" bg-transparent p-3 shadow border-b-2 text-black ">
       <div className="flex">
         {/* menu button for small device */}
         <div
@@ -41,9 +41,9 @@ const Navbar = () => {
         </div>
         {/* Navbar anchors */}
         <div
-          className={`bg-white lg:grow lg:my-auto lg:mx-10 ${
+          className={`bg-white z-10 lg:grow lg:my-auto lg:mx-10 ${
             user ? "" : "lg:mx-60"
-          } lg:static absolute duration-500 ease-in ${
+          } lg:static absolute duration-500 ease-in over ${
             openAnchors
               ? "top-20 w-3/4 p-5 mx-auto rounded-2xl border-2"
               : "top-[-200px]"
@@ -139,7 +139,7 @@ const Navbar = () => {
         <div
           className={`${
             openProfile
-              ? "absolute top-20 right-0 w-80 bg-blue-50 border-b-2 border-x-2 rounded-bl-3xl "
+              ? "absolute top-20 right-0 w-80 bg-blue-50 border-b-2 border-x-2 rounded-bl-3xl z-10"
               : "hidden"
           }`}
         >
@@ -166,7 +166,7 @@ const Navbar = () => {
                     href="/settings"
                     className="block px-4 py-2 text-black hover:bg-blue-100"
                   >
-                    Profile Settings
+                    My Profile
                   </a>
                 </li>
               </ul>

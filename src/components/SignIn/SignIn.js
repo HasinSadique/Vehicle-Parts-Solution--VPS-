@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useAuthState,
   useSignInWithEmailAndPassword,
@@ -29,9 +29,9 @@ const SignIn = () => {
   const handleUserSignIn = (event) => {
     event.preventDefault();
     signInWithEmailAndPassword(email, password);
-    // if (error) {
-    //   console.log(error.message);
-    // }
+    // useEffect(() => {
+    //   fetch("");
+    // }, []);
     event.target.reset();
   };
 
