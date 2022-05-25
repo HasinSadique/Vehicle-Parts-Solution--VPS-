@@ -163,7 +163,7 @@ const Navbar = () => {
                 </li>
                 <li>
                   <a
-                    href="/settings"
+                    href="/my-profile"
                     className="block px-4 py-2 text-black hover:bg-blue-100"
                   >
                     My Profile

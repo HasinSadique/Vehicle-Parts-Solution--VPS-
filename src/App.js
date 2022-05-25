@@ -10,6 +10,8 @@ import SignIn from "./components/SignIn/SignIn";
 import SignUp from "./components/SignUp/SignUp";
 import Dashboard from "./components/Dashboard/Dashboard";
 import MyOrders from "./components/Dashboard/MyOrders/MyOrders";
+import MyProfileSetting from "./components/MyProfileSetting/MyProfileSetting";
+import MyProfile from "./components/MyProfile/MyProfile";
 
 function App() {
   return (
@@ -17,11 +19,22 @@ function App() {
       <NavBar></NavBar>
       <Routes>
         <Route path="/" element={<Home />}></Route>
-
-        {/* <Route path="/" element={<Dashboard />}>
-          <Route path="my-orders" element={<MyOrders />} />
-          <Route path="invoices" element={<Invoices />} />
-        </Route> */}
+        <Route
+          path="my-profile"
+          element={
+            <RequireAuth>
+              <MyProfile></MyProfile>
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="my-profile-settings"
+          element={
+            <RequireAuth>
+              <MyProfileSetting></MyProfileSetting>
+            </RequireAuth>
+          }
+        ></Route>
         <Route
           path="dashboard"
           element={
@@ -31,37 +44,7 @@ function App() {
           }
         >
           <Route index element={<MyOrders></MyOrders>}></Route>
-          {/* <Route path="review" element={<MyReview></MyReview>}></Route>
-          <Route path="profile" element={<MyProfile></MyProfile>}></Route>
-          <Route
-            path="users"
-            element={
-              <RequireAdmin>
-                <Users></Users>
-              </RequireAdmin>
-            }
-          ></Route> */}
         </Route>
-
-        {/* <Route
-          path="/dashboard"
-          element={
-            <RequireAuth>
-              <Dashboard>
-                <Route path="my-orders" element={<MyOrders></MyOrders>}></Route>
-              </Dashboard>
-            </RequireAuth>
-          }
-        ></Route> */}
-        {/* <Route path="/my-orders" element={<MyOrders></MyOrders>}></Route> */}
-        {/* <Route
-          path="/my-orders"
-          element={
-            <Dashboard>
-              <MyOrders></MyOrders>
-            </Dashboard>
-          }
-        ></Route> */}
 
         {/* <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route> */}
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
@@ -74,6 +57,7 @@ function App() {
             </RequireAuth>
           }
         ></Route>
+
         <Route path="/*" element={<NotFound></NotFound>}></Route>
       </Routes>
       <Footer></Footer>
