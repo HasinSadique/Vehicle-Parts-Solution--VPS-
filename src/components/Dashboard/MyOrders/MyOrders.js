@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const MyOrders = () => {
   const [user] = useAuthState(auth);
   const [myOrders, setMyOrders] = useState([]);
   // const [part, setPart] = useState(initialState);
 
+  const location = useLocation();
+
   useEffect(() => {
     fetch(`http://localhost:5000/get-orders?buyer=${user.email}`)
       .then((res) => res.json())
       .then((data) => setMyOrders(data));
   }, []);
+
+  const handleDeleteItemClick = (OrderID) => {
+    fetch(`http://localhost:5000/delete-item/${OrderID}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.Status == 200) {
+          //navigate to Inventory List
+          window.location.reload(true);
+        }
+      });
+  };
 
   // console.log(myOrders);
   return (
@@ -45,20 +62,23 @@ const MyOrders = () => {
                   "Paid"
                 ) : (
                   <div className="flex justify-center items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-7 w-7 hover:scale-125"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="orange"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                      />
-                    </svg>
+                    <label for="my-modal-6" class="modal-button">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-7 w-7 hover:scale-125"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="orange"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
+                    </label>
+
                     <a
                       className="hover:bg-orange-600 border-2 text-white px-5 py-1 rounded-2xl ml-2 hover:scale-105"
                       href=""
@@ -68,6 +88,41 @@ const MyOrders = () => {
                   </div>
                 )}
               </td>
+              <tbody>
+                {/* Modal for confirmation */}
+                <input type="checkbox" id="my-modal-6" class="modal-toggle" />
+                <div class=" z-30 modal modal-bottom sm:modal-middle">
+                  <div class="  modal-box">
+                    <h3 class="font-bold text-lg text-center">
+                      Item Delete Confirmation
+                    </h3>
+                    <p class="py-4 mt-3">
+                      Are you sure you want to delete{" "}
+                      <span className="text-xl font-semibold">
+                        {order.partName}
+                      </span>{" "}
+                      from your orders?
+                    </p>
+                    <div class="flex justify-around mt-10 modal-action">
+                      <label
+                        onClick={() => handleDeleteItemClick(order._id)}
+                        for="my-modal-6"
+                        class="btn bg-red-600 text-white"
+                      >
+                        Confirm
+                      </label>
+                      <label
+                        onClick={() => handleDeleteItemClick(order._id)}
+                        for="my-modal-6"
+                        class="btn text-white"
+                      >
+                        Cancel
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                {/* Modal for confirmation */}
+              </tbody>
             </tr>
           ))}
 
