@@ -11,10 +11,34 @@ const SignIn = () => {
   const [signInWithGoogle, userGoogle] = useSignInWithGoogle(auth);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [response, setResponse] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+
+  const [userAuth] = useAuthState(auth);
+
+  const handleSignInWithGoogle = (event) => {
+    event.preventDefault();
+    signInWithGoogle();
+    if (userAuth) {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          currentUser: userAuth.email,
+          userRole: "Customer",
+        }),
+      };
+
+      fetch("http://localhost:5000/set-userrole", requestOptions)
+        .then((res) => res.json())
+        .then((data) => setResponse(data));
+    } else {
+      console.log("Google Sign in Error");
+    }
+  };
 
   const handleEmailBlur = (event) => {
     setEmail(event.target.value);
@@ -87,7 +111,7 @@ const SignIn = () => {
         <hr className=" mt-6 border-gray-200 w-3/4 mx-auto dark:border-gray-700" />
         <h1 className="text-black text-center my-5">Or, Sign in with </h1>
         <button
-          onClick={() => signInWithGoogle()}
+          onClick={handleSignInWithGoogle}
           className=" hover:bg-blue-600 hover:text-white border-2 hover:scale-105 mx-auto px-5 py-1.5 font-semibold rounded-2xl flex gap-3 bg-white"
         >
           <img

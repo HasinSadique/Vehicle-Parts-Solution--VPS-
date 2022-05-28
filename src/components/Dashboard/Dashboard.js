@@ -78,7 +78,7 @@ const Dashboard = () => {
                 </Link>
               </li>
               <li>
-                <Link className="mx-auto" to="/view-users">
+                <Link className="mx-auto" to="/dashboard/view-users">
                   View all users
                 </Link>
               </li>
