@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, Outlet } from "react-router-dom";
 import auth from "../../firebase.init";
@@ -7,6 +7,16 @@ import auth from "../../firebase.init";
 const Dashboard = () => {
   const [user] = useAuthState(auth);
   // const [admin] = useAdmin(user);
+  const [userLoggedIn, setUserLoggedIn] = useState({});
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/check-user-role?userEmail=${user.email}`)
+      .then((res) => res.json())
+      .then((data) => setUserLoggedIn(data));
+  }, []);
+  // const { user } = userLoggedIn;
+  // const { userRole } = currentUser;
+  // console.log(userLoggedIn.currentUser);
 
   return (
     <div className="drawer drawer-mobile">
@@ -38,11 +48,44 @@ const Dashboard = () => {
         <label for="dashboard-sidebar" className="drawer-overlay"></label>
         <ul className="menu p-4 overflow-y-auto w-56 bg-base-200 text-base-content">
           {/* <!-- Sidebar content here --> */}
-          <li>
-            <Link className="mx-auto" to="/dashboard">
-              My Orders
-            </Link>
-          </li>
+          {userLoggedIn.userRole == "Customer" ? (
+            <div>
+              <li>
+                <Link className="mx-auto" to="/">
+                  My orders
+                </Link>
+              </li>
+              <li>
+                <Link className="mx-auto" to="/dashboard/add-review">
+                  Add a review
+                </Link>
+              </li>
+            </div>
+          ) : (
+            <></>
+          )}
+
+          {userLoggedIn.userRole == "Admin" ? (
+            <div>
+              <li>
+                <Link className="mx-auto" to="/dashboard/add-part">
+                  Add a new product
+                </Link>
+              </li>
+              <li>
+                <Link className="mx-auto" to="/manage-parts">
+                  Manage products
+                </Link>
+              </li>
+              <li>
+                <Link className="mx-auto" to="/view-users">
+                  View all users
+                </Link>
+              </li>
+            </div>
+          ) : (
+            <></>
+          )}
           {/* <li><Link to="/dashboard/review">My Reviews</Link></li> */}
           {/* <li><Link to="/dashboard/profile">My Profile</Link></li> */}
           {/* {admin && <li><Link to="/dashboard/users">All Users</Link></li>} */}

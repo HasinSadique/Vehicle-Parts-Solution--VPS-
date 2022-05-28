@@ -12,8 +12,18 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import MyOrders from "./components/Dashboard/MyOrders/MyOrders";
 import MyProfileSetting from "./components/MyProfileSetting/MyProfileSetting";
 import MyProfile from "./components/MyProfile/MyProfile";
+import Payment from "./components/Dashboard/MyOrders/Payment/Payment";
+import AddPart from "./components/Dashboard/AddPart/AddPart";
+import MyReview from "./components/Dashboard/MyReview/MyReview";
 
 function App() {
+  const [user] = useAuthState(auth);
+  useEffect(() => {
+    fetch(`http://localhost:5000/check-user-role?userEmail=${user.email}`)
+      .then((res) => res.json())
+      .then((data) => setUserLoggedIn(data));
+  }, []);
+
   return (
     <div className="App bg-blue-50">
       <NavBar></NavBar>
@@ -27,6 +37,7 @@ function App() {
             </RequireAuth>
           }
         ></Route>
+
         <Route
           path="my-profile-settings"
           element={
@@ -44,9 +55,11 @@ function App() {
           }
         >
           <Route index element={<MyOrders></MyOrders>}></Route>
+          <Route path="add-part" element={<AddPart></AddPart>}></Route>
+          <Route path="add-review" element={<MyReview></MyReview>}></Route>
+          <Route path="payment/:orderid" element={<Payment></Payment>}></Route>
         </Route>
 
-        {/* <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route> */}
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
         <Route

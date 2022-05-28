@@ -29,11 +29,11 @@ const SignIn = () => {
   const handleUserSignIn = (event) => {
     event.preventDefault();
     signInWithEmailAndPassword(email, password);
-    // useEffect(() => {
-    //   fetch("");
-    // }, []);
+
     event.target.reset();
   };
+
+  console.log("userEmail: ", user);
 
   if (userGoogle || user) {
     navigate(from, { replace: true });

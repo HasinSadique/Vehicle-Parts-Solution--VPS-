@@ -12,10 +12,11 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
   const [errorMSG, setErrorMSG] = useState("");
+  const [response, setResponse] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/signin";
 
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth);
@@ -35,15 +36,29 @@ const SignUp = () => {
     event.preventDefault();
     if (password == confirmPass) {
       createUserWithEmailAndPassword(email, password);
+      //set user role to customer
+      // let user = { userEmail: email, userRole: "Customer" };
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentUser: email, userRole: "Customer" }),
+      };
+
+      fetch("http://localhost:5000/set-userrole", requestOptions)
+        .then((res) => res.json())
+        .then((data) => setResponse(data));
+      if (response.success == true) {
+        navigate(from, { replace: true });
+      }
     } else {
       setErrorMSG("Password mismatch.");
       return;
     }
   };
 
-  if (user) {
-    navigate(from, { replace: true });
-  }
+  // if (user) {
+  //   navigate(from, { replace: true });
+  // }
 
   return (
     <div className="py-20">

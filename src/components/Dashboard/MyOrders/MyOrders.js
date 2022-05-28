@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 const MyOrders = () => {
   const [user] = useAuthState(auth);
@@ -51,7 +51,7 @@ const MyOrders = () => {
           </thead>
 
           {myOrders.map((order, index) => (
-            <tr className="bg-slate-600 border-b-2">
+            <tr key={order._id} className="bg-slate-600 border-b-2">
               <th className="text-center bg-slate-600">{index + 1}</th>
               <td className="text-center">{order._id}</td>
               <td className="text-center">{order.partName}</td>
@@ -81,7 +81,7 @@ const MyOrders = () => {
 
                     <a
                       className="hover:bg-orange-600 border-2 text-white px-5 py-1 rounded-2xl ml-2 hover:scale-105"
-                      href=""
+                      href={`dashboard/payment/${order._id}`}
                     >
                       Make Payment
                     </a>
@@ -91,7 +91,7 @@ const MyOrders = () => {
               <tbody>
                 {/* Modal for confirmation */}
                 <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-                <div class=" z-30 modal modal-bottom sm:modal-middle">
+                <div class=" modal modal-bottom sm:modal-middle">
                   <div class="  modal-box">
                     <h3 class="font-bold text-lg text-center">
                       Item Delete Confirmation
@@ -125,31 +125,11 @@ const MyOrders = () => {
               </tbody>
             </tr>
           ))}
-
-          <tbody>
-            {/* <!-- row 1 --> */}
-
-            {/* <!-- row 2 --> */}
-            {/* <tr>
-            <th>2</th>
-            <td>Hart Hagerty</td>
-            <td>Desktop Support Technician</td>
-            <td>Purple</td>
-          </tr> */}
-            {/* <!-- row 3 --> */}
-            {/* <tr>
-            <th>3</th>
-            <td>Brice Swyre</td>
-            <td>Tax Accountant</td>
-            <td>Red</td>
-          </tr> */}
-          </tbody>
         </table>
       ) : (
         <h1 className="">You have no orders</h1>
       )}
     </div>
-    // <div>My Orders</div>
   );
 };
 
