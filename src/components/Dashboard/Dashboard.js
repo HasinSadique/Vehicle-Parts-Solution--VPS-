@@ -48,6 +48,11 @@ const Dashboard = () => {
           {userLoggedIn.userRole == "Customer" ? (
             <div>
               <li>
+                <Link className="mx-auto" to="/my-profile">
+                  My Profile
+                </Link>
+              </li>
+              <li>
                 <Link className="mx-auto" to="/dashboard/my-orders">
                   My orders
                 </Link>
@@ -64,6 +69,11 @@ const Dashboard = () => {
 
           {userLoggedIn.userRole == "Admin" ? (
             <div>
+              <li>
+                <Link className="mx-auto" to="/my-profile">
+                  My Profile
+                </Link>
+              </li>
               <li>
                 <Link className="mx-auto" to="/dashboard/all-orders">
                   View All Orders

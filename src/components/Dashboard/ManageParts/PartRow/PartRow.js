@@ -1,7 +1,7 @@
 import React from "react";
 
 const PartRow = ({ equipment, index, refetch, setDeletingEquipment }) => {
-  const { name, availableQuantity, img } = equipment;
+  const { name, availableQuantity, image } = equipment;
 
   return (
     <tr>
@@ -9,7 +9,7 @@ const PartRow = ({ equipment, index, refetch, setDeletingEquipment }) => {
       <td>
         <div className="avatar">
           <div className="w-14 rounded-xl">
-            <img src={img} alt={name} />
+            <img src={image} />
           </div>
         </div>
       </td>

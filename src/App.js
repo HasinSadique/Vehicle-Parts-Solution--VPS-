@@ -20,6 +20,7 @@ import Testimonials from "./components/Testimonials/Testimonials";
 import Blog from "./components/Blog/Blog";
 import ManageParts from "./components/Dashboard/ManageParts/ManageParts";
 import AllOrders from "./components/Dashboard/AllOrders/AllOrders";
+import Portfolio from "./components/Portfolio/Portfolio";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/blog" element={<Blog></Blog>}></Route>
+        <Route path="/my-portfolio" element={<Portfolio></Portfolio>}></Route>
         <Route path="/reviews" element={<Testimonials></Testimonials>}></Route>
         <Route
           path="my-profile"

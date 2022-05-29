@@ -22,6 +22,21 @@ const AllOrders = () => {
       });
   };
 
+  const handleMakeShipmentClick = (OrderID) => {
+    // /make-shipment/:id
+    fetch(`http://localhost:5000/make-shipment/${OrderID}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged == true) {
+          //navigate to Inventory List
+          window.location.reload(true);
+        }
+      });
+  };
+
   return (
     <div>
       <div class="overflow-x-auto">
@@ -30,14 +45,14 @@ const AllOrders = () => {
           <thead>
             <tr className="mx-auto">
               <th></th>
-              <th>Order ID</th>
-              <th>User Email</th>
-              <th>Part Name</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Payment</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th className="text-center">Order ID</th>
+              <th className="text-center">User Email</th>
+              <th className="text-center">Part Name</th>
+              <th className="text-center">Price</th>
+              <th className="text-center">Quantity</th>
+              <th className="text-center">Payment</th>
+              <th className="text-center">Status</th>
+              <th className="text-center">Actions</th>
             </tr>
           </thead>
 
@@ -61,15 +76,23 @@ const AllOrders = () => {
                 </td>
                 <td>{order.status}</td>
                 <td>
-                  {order.payment ? (
-                    <button className="btn bg-green-500">Make Shipment</button>
+                  {order.Order_Status != "Shipped" ? (
+                    <div>
+                      <button
+                        onClick={() => handleMakeShipmentClick(order._id)}
+                        className="btn bg-green-500 text-white"
+                      >
+                        Make Shipment
+                      </button>
+                      <button
+                        onClick={() => handleDeleteItemClick(order._id)}
+                        className="btn bg-red-600 text-white"
+                      >
+                        Cancel Order
+                      </button>
+                    </div>
                   ) : (
-                    <button
-                      onClick={() => handleDeleteItemClick(order._id)}
-                      className="btn bg-red-600 text-white"
-                    >
-                      Cancel Order
-                    </button>
+                    <h1>Shipped</h1>
                   )}
                 </td>
               </tr>

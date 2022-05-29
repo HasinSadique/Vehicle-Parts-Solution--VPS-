@@ -3,6 +3,7 @@ import PartsCard from "../PartsCard/PartsCard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import Review from "../Review/Review";
+import BusinessSummary from "./BusinessSummary/BusinessSummary";
 
 const Home = () => {
   const [user] = useAuthState(auth);
@@ -51,7 +52,7 @@ const Home = () => {
       </div>
       {/* Parts Max 6 */}
       <div className="mt-40 mb-16 lg:mx-60 md:mx-28 mx-20">
-        <h1 className="mt-5 text-2xl text-center font-semibold mb-10">
+        <h1 className="mt-5 text-2xl text-center font-semibold mb-10 text-black">
           Parts LineUp {parts.length}
         </h1>
         <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">
@@ -90,6 +91,7 @@ const Home = () => {
           Europe and Australasia.
         </p>
       </div>
+      <BusinessSummary></BusinessSummary>
       {/* Reviews */}
 
       <div className=" bg-yellow-50">
@@ -102,6 +104,20 @@ const Home = () => {
           ))}
         </div>
       </div>
+
+      <h1 className="text-center text-3xl mt-36 text-black font-bold mb-5">
+        Installing The Karma Widebody Kit!
+      </h1>
+      <iframe
+        className="mx-auto"
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/2SaGCn9FQIE"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
     </div>
   );
 };

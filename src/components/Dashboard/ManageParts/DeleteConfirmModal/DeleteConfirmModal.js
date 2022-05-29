@@ -8,14 +8,14 @@ const DeleteConfirmModal = ({
   const { _id, name } = deletingEquipment;
 
   const handleDelete = (id) => {
-    fetch(`https://fathomless-gorge-87844.herokuapp.com/part/${id}`, {
+    fetch(`http://localhost:5000/delete-item/${id}`, {
       method: "DELETE",
       headers: {},
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.deletedCount) {
+        if (data.Status == 200) {
           alert(`${name} is deleted.`);
 
           // to close the modal
@@ -49,11 +49,7 @@ const DeleteConfirmModal = ({
               Confirm
             </button>
 
-            <label
-              for="delete-confirm-modal"
-              className="btn btn-success
-                        "
-            >
+            <label for="delete-confirm-modal" className="btn btn-success">
               Cancel
             </label>
           </div>

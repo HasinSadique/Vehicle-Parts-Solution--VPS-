@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 const ViewAllUsers = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch("https://vehicle-parts-solution.herokuapp.com/get-all-users")
+    fetch("http://localhost:5000/get-all-users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
 
   const handleMakeAdminClick = (email) => {
-    fetch(`https://vehicle-parts-solution.herokuapp.com/users/${email}`, {
+    fetch(`http://localhost:5000/users/${email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -18,7 +18,11 @@ const ViewAllUsers = () => {
       // body: JSON.stringify(equipment),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data.modifiedCount == 1 && data.acknowledged) {
+          window.location.reload(true);
+        }
+      });
   };
   return (
     <div className="w-full">
@@ -35,7 +39,7 @@ const ViewAllUsers = () => {
           </thead>
           <tbody>
             {users.map((user, index) => (
-              <tr>
+              <tr key={user._id}>
                 <th>{index + 1}</th>
                 <td>{user.userEmail}</td>
                 <td>{user.userRole}</td>
