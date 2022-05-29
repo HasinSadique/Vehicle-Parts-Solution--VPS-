@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useNavigate, useLocation } from "react-router-dom";
+import auth from "../../firebase.init";
 
 const PartsCard = (props) => {
+  const [user] = useAuthState(auth);
   const {
     _id,
     name,
@@ -12,6 +15,19 @@ const PartsCard = (props) => {
     available_qnty,
   } = props.item;
 
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/check-user-role?userEmail=${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => setCurrentUser(data));
+  }, []);
+
+  console.log("Role: ", currentUser.userRole);
+
+  //Get Image
+  // console.log("IMG: ", props.item);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -20,8 +36,8 @@ const PartsCard = (props) => {
   };
 
   return (
-    <div className="  text-slate p-2 rounded-3xl">
-      <div className=" bg-base-100 shadow-2xl ">
+    <div className=" text-slate p-2 rounded-3xl">
+      <div className="h-full bg-base-100 shadow-2xl ">
         <figure>
           <img
             className="w-full h-60 mx-auto rounded-t-3xl mb-5"
@@ -31,15 +47,22 @@ const PartsCard = (props) => {
         </figure>
         <div className="card-body">
           <h2 className="font-semibold text-2xl">{name}</h2>
-          <p>{description}</p>
+          <p className="text-left mt-2">{description}</p>
+          <h1 className="mt-10 text-xl font-bold text-white">
+            Price: ${price}
+          </h1>
           <div className="mt-10">
-            <button
-              onClick={() => navigateToPurchasePart(_id)}
-              className="bg-orange-600 text-white px-5 py-1 mb-5
+            {currentUser.userRole != "Admin" ? (
+              <button
+                onClick={() => navigateToPurchasePart(_id)}
+                className="bg-orange-600 text-white px-5 py-1 mb-5
             "
-            >
-              BUY NOW
-            </button>
+              >
+                BUY NOW
+              </button>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

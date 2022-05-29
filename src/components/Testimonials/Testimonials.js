@@ -6,24 +6,24 @@ const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/review")
+    fetch("https://vehicle-parts-solution.herokuapp.com/review")
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);
 
   return (
-    <section className="my-28 max-w-7xl mx-auto px-12">
-      <div className="flex justify-between">
-        <div>
-          <h4 className="text-xl text-primary font-bold">Customers' Reviews</h4>
-          <h2 className="text-3xl">About Our Products & Services</h2>
+    <section className=" bg-orange-100">
+      <div className="flex justify-between bg-orange-600 ">
+        <div className="mx-auto text-white">
+          <h4 className="text-4xl  font-bold">Customers' Reviews</h4>
+          <h2 className="text-lg my-5">About Our Products & Services</h2>
         </div>
         {/* <div>
           <img src={quote} className="lg:w-48 w-24 animated" alt="" />
         </div> */}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-4 p-10">
         {reviews.map((review) => (
           <Review key={review._id} review={review}></Review>
         ))}

@@ -22,17 +22,17 @@ const AddPart = () => {
       .then((res) => res.json())
       .then((result) => {
         if (result.success) {
-          const img = result.data.url;
+          const image = result.data.url;
           const equipment = {
             name: data.name,
             description: data.description,
             availableQuantity: data.availableQuantity,
             minimumOrder: data.minimumOrder,
             price: data.price,
-            img: img,
+            image: image,
           };
           // send to your data base
-          fetch("http://localhost:5000/part", {
+          fetch("https://vehicle-parts-solution.herokuapp.com/part", {
             method: "POST",
             headers: {
               "content-type": "application/json",

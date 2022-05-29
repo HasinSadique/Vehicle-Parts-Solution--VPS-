@@ -8,7 +8,9 @@ const MyProfile = () => {
 
   //   Fetch User Profile Details
   useEffect(() => {
-    fetch(`http://localhost:5000/get-userdetails?user=${user.email}`)
+    fetch(
+      `https://vehicle-parts-solution.herokuapp.com/get-userdetails?user=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => setUserDB(data));
   }, []);

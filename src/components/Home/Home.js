@@ -2,17 +2,26 @@ import React, { useEffect, useState } from "react";
 import PartsCard from "../PartsCard/PartsCard";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
+import Review from "../Review/Review";
 
 const Home = () => {
   const [user] = useAuthState(auth);
   const [parts, setParts] = useState([]);
+
   useEffect(() => {
-    fetch("http://localhost:5000/getParts")
+    fetch("https://vehicle-parts-solution.herokuapp.com/getParts")
       .then((res) => res.json())
       .then((data) => setParts(data));
   }, []);
 
-  console.log("UserAuthState: ", user);
+  // For Reviews
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetch("https://vehicle-parts-solution.herokuapp.com/review")
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, []);
 
   return (
     <div>
@@ -46,25 +55,25 @@ const Home = () => {
           Parts LineUp {parts.length}
         </h1>
         <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2">
-          {parts.slice(0, 3).map((item) => (
+          {parts.slice(parts.length - 3, parts.length).map((item) => (
             <PartsCard key={item._id} item={item}></PartsCard>
           ))}
         </div>
       </div>
-      <div className="mb-40">
+      {/* <div className="mb-40">
         <a
           className="border-orange-600 border-2 hover:bg-orange-600 rounded-3xl hover:text-white px-8 py-1.5"
           href=""
         >
           Show All Parts
         </a>
-      </div>
+      </div> */}
       {/* Business Summary */}
       <div className="p-10 bg-stone-100 border-4 rounded-xl lg:w-1/2 mx-auto ">
-        <h1 className="text-2xl text-left font-semibold mb-10">
+        <h1 className="text-2xl text-left font-semibold mb-10 text-black">
           Business Summary
         </h1>
-        <p className="text-left text-justify">
+        <p className="text-left text-black font-semibold text-justify">
           In 1928, Carlyle Fraser founded VPS with the purchase of Motor Parts
           Depot in Atlanta, Georgia for $40,000. He then renamed the parts store
           Vehicle Parts Solution. The original VPS store had annual sales of
@@ -82,40 +91,15 @@ const Home = () => {
         </p>
       </div>
       {/* Reviews */}
-      <div>
-        <div className="mt-20 bg-stone-100 w-3/4 mx-auto">
-          <h1 className="text-2xl font-semibold">Client Reviews</h1>
 
-          <span className="flex">
-            User Name
-            <div className="rating">
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-              <input
-                type="radio"
-                name="rating-2"
-                className="mask mask-star-2 bg-orange-400"
-              />
-            </div>
-          </span>
+      <div className=" bg-yellow-50">
+        <h1 className="mt-32 text-3xl text-black pt-5">
+          Client's Review About Us{" "}
+        </h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-items-center gap-5 py-10">
+          {reviews.map((review) => (
+            <Review key={review._id} review={review}></Review>
+          ))}
         </div>
       </div>
     </div>

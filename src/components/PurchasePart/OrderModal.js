@@ -27,7 +27,10 @@ const OrderModal = (props) => {
       }),
     };
 
-    fetch("http://localhost:5000/booking", requestOptions)
+    fetch(
+      "https://vehicle-parts-solution.herokuapp.com/booking",
+      requestOptions
+    )
       .then((res) => res.json())
       .then((data) => setResponse(data));
     if (response.success == true) {

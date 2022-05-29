@@ -14,9 +14,6 @@ const Dashboard = () => {
       .then((res) => res.json())
       .then((data) => setUserLoggedIn(data));
   }, []);
-  // const { user } = userLoggedIn;
-  // const { userRole } = currentUser;
-  // console.log(userLoggedIn.currentUser);
 
   return (
     <div className="drawer drawer-mobile">
@@ -51,7 +48,7 @@ const Dashboard = () => {
           {userLoggedIn.userRole == "Customer" ? (
             <div>
               <li>
-                <Link className="mx-auto" to="/">
+                <Link className="mx-auto" to="/dashboard/my-orders">
                   My orders
                 </Link>
               </li>
@@ -68,12 +65,17 @@ const Dashboard = () => {
           {userLoggedIn.userRole == "Admin" ? (
             <div>
               <li>
+                <Link className="mx-auto" to="/dashboard/all-orders">
+                  View All Orders
+                </Link>
+              </li>
+              <li>
                 <Link className="mx-auto" to="/dashboard/add-part">
                   Add a new product
                 </Link>
               </li>
               <li>
-                <Link className="mx-auto" to="/manage-parts">
+                <Link className="mx-auto" to="/dashboard/manage-part">
                   Manage products
                 </Link>
               </li>

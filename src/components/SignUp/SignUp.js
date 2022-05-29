@@ -38,6 +38,8 @@ const SignUp = () => {
       createUserWithEmailAndPassword(email, password);
       //set user role to customer
       // let user = { userEmail: email, userRole: "Customer" };
+
+      console.log("email signup: ", email);
       const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -56,9 +58,9 @@ const SignUp = () => {
     }
   };
 
-  // if (user) {
-  //   navigate(from, { replace: true });
-  // }
+  if (user) {
+    navigate(from, { replace: true });
+  }
 
   return (
     <div className="py-20">

@@ -30,7 +30,10 @@ const MyProfileSetting = () => {
       }),
     };
 
-    fetch("http://localhost:5000/add-profile-info", requestOptions)
+    fetch(
+      "https://vehicle-parts-solution.herokuapp.com/add-profile-info",
+      requestOptions
+    )
       .then((res) => res.json())
       .then((data) => setResponse(data));
     if (response.result.acknowledged == true) {

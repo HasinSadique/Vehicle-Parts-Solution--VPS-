@@ -31,7 +31,7 @@ const MyReview = () => {
             img: img,
           };
           // send to your data base
-          fetch("http://localhost:5000/review", {
+          fetch("https://vehicle-parts-solution.herokuapp.com/review", {
             method: "POST",
             headers: {
               "content-type": "application/json",

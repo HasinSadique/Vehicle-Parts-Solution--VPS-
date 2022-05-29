@@ -32,7 +32,10 @@ const SignIn = () => {
         }),
       };
 
-      fetch("http://localhost:5000/set-userrole", requestOptions)
+      fetch(
+        "https://vehicle-parts-solution.herokuapp.com/set-userrole",
+        requestOptions
+      )
         .then((res) => res.json())
         .then((data) => setResponse(data));
     } else {

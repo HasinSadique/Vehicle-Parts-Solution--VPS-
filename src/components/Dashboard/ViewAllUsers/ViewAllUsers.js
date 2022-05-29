@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 const ViewAllUsers = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/get-all-users")
+    fetch("https://vehicle-parts-solution.herokuapp.com/get-all-users")
       .then((res) => res.json())
       .then((data) => setUsers(data));
   }, []);
 
   const handleMakeAdminClick = (email) => {
-    fetch(`http://localhost:5000/users/${email}`, {
+    fetch(`https://vehicle-parts-solution.herokuapp.com/users/${email}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -21,11 +21,11 @@ const ViewAllUsers = () => {
       .then((data) => console.log(data));
   };
   return (
-    <div>
+    <div className="w-full">
       <div class="overflow-x-auto">
-        <table class="w-full table table-zebra w-full">
+        <table class="w-full  table table-zebra w-full">
           {/* <!-- head --> */}
-          <thead>
+          <thead className=" ">
             <tr className="mx-auto">
               <th></th>
               <th>User Email</th>

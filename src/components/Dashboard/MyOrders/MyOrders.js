@@ -37,7 +37,7 @@ const MyOrders = () => {
         Your Dashboard
       </h2>
       {myOrders.length > 0 ? (
-        <table className="table table-zebra w-full">
+        <table className="table table-zebra w-full ">
           {/* <!-- head --> */}
           <thead>
             <tr>
@@ -59,7 +59,16 @@ const MyOrders = () => {
               <td className="text-center">{order.price}</td>
               <td className="text-center">
                 {order.payment ? (
-                  "Paid"
+                  <div>
+                    <small className=" text-white rounded-xl font-semibold">
+                      Paid
+                    </small>
+                    <br />
+                    <small className="text-orange-400">
+                      <span className="text-white">TRXID: </span>
+                      {order.TRXID}
+                    </small>
+                  </div>
                 ) : (
                   <div className="flex justify-center items-center">
                     <label for="my-modal-6" class="modal-button">
@@ -69,7 +78,7 @@ const MyOrders = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="orange"
-                        stroke-width="2"
+                        strokeWidth="2"
                       >
                         <path
                           stroke-linecap="round"
@@ -81,7 +90,7 @@ const MyOrders = () => {
 
                     <a
                       className="hover:bg-orange-600 border-2 text-white px-5 py-1 rounded-2xl ml-2 hover:scale-105"
-                      href={`dashboard/payment/${order._id}`}
+                      href={`/dashboard/payment/${order._id}`}
                     >
                       Make Payment
                     </a>

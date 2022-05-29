@@ -8,35 +8,36 @@ const PurchasePart = () => {
   const [part, setPart] = useState({});
   const [orderQuantity, setOrderQuantity] = useState(0);
 
+  const url = `http://localhost:5000/getParts/${itemId}`;
   useEffect(() => {
-    const url = `http://localhost:5000/getParts/${itemId}`;
+    // const url = `https://vehicle-parts-solution.herokuapp.com/getParts/${itemId}`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => setPart(data));
   }, []);
   useEffect(() => {
-    const url = `http://localhost:5000/getParts/${itemId}`;
+    // const url = `https://vehicle-parts-solution.herokuapp.com/getParts/${itemId}`;
     fetch(url)
       .then((res) => res.json())
-      .then((data) => setOrderQuantity(data.min_order_qnty));
+      .then((data) => setOrderQuantity(data.minimumOrder));
   }, []);
+
+  console.log("Part: ", part);
 
   const handlePlaceorder = () => {
     <OrderModal setPlaceOrder={setPlaceOrder}></OrderModal>;
   };
 
   const handleIncreaseOrderQuantity = () => {
-    let increasedQnty = orderQuantity + 1;
-    if (increasedQnty <= part.available_qnty) {
+    let increasedQnty = parseInt(orderQuantity) + 1;
+    if (increasedQnty <= parseInt(part.availableQuantity)) {
       setOrderQuantity(increasedQnty);
     }
   };
   const handleDecreaseOrderQuantity = () => {
-    let decreasedQnty = orderQuantity - 1;
-    if (decreasedQnty >= part.min_order_qnty) {
+    let decreasedQnty = parseInt(orderQuantity) - 1;
+    if (decreasedQnty >= parseInt(part.minimumOrder)) {
       setOrderQuantity(decreasedQnty);
-      // let totalPrice=part.price
-      // setTotalPrice()
     }
   };
 
@@ -59,10 +60,10 @@ const PurchasePart = () => {
             </small>
           </h2>
           <h2 className="text-white">
-            Minimum Order Quantity: {part.min_order_qnty}
+            Minimum Order Quantity: {part.minimumOrder}
           </h2>
           <h2 className="text-white">
-            Available Quantity: {part.available_qnty}
+            Available Quantity: {part.availableQuantity}
           </h2>
           <h2 className="text-white mb-2">Price per Quantity: ${part.price}</h2>
           <div className=" flex justify-center items-center mb-10">
@@ -83,7 +84,9 @@ const PurchasePart = () => {
                 />
               </svg>
             </button>
-            <h1 className="text-white">Order Quantity: {orderQuantity} </h1>
+            <h1 className="text-white">
+              Order Quantity: {parseInt(orderQuantity)}{" "}
+            </h1>
             <button
               onClick={handleIncreaseOrderQuantity}
               className=" border-2 border-orange-500 ml-3 w-6 h-6"
@@ -104,7 +107,7 @@ const PurchasePart = () => {
           </div>
 
           <h1 className="font-extrabold text-3xl mb-5 text-white">
-            Total Price: ${part.price * orderQuantity}
+            Total Price: ${part.price * parseInt(orderQuantity)}
           </h1>
           <label
             onClick={setPlaceOrder}
@@ -118,8 +121,8 @@ const PurchasePart = () => {
             <OrderModal
               setPlaceOrder={setPlaceOrder}
               partName={part.name}
-              price={part.price * orderQuantity}
-              quantity={orderQuantity}
+              price={part.price * parseInt(orderQuantity)}
+              quantity={parseInt(orderQuantity)}
             ></OrderModal>
           )}
         </div>

@@ -18,6 +18,8 @@ import MyReview from "./components/Dashboard/MyReview/MyReview";
 import ViewAllUsers from "./components/Dashboard/ViewAllUsers/ViewAllUsers";
 import Testimonials from "./components/Testimonials/Testimonials";
 import Blog from "./components/Blog/Blog";
+import ManageParts from "./components/Dashboard/ManageParts/ManageParts";
+import AllOrders from "./components/Dashboard/AllOrders/AllOrders";
 
 function App() {
   return (
@@ -45,15 +47,20 @@ function App() {
           }
         ></Route>
         <Route
-          path="dashboard"
+          path="/dashboard"
           element={
             <RequireAuth>
               <Dashboard></Dashboard>
             </RequireAuth>
           }
         >
-          <Route element={<MyOrders></MyOrders>}></Route>
+          <Route path="my-orders" element={<MyOrders></MyOrders>}></Route>
           <Route path="add-part" element={<AddPart></AddPart>}></Route>
+          <Route path="all-orders" element={<AllOrders></AllOrders>}></Route>
+          <Route
+            path="manage-part"
+            element={<ManageParts></ManageParts>}
+          ></Route>
           <Route
             path="view-users"
             element={<ViewAllUsers></ViewAllUsers>}
